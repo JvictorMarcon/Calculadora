@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../style2.css">
+    <link rel="icon" href="../assets/img/logo.jpg">
+    <title>Calculadora de Pirâmides</title>
+</head>
+<body>
+    <header class="header">
+        <a href="../index.html"><img src="../assets/img/logo.jpg" alt="logo" class="logo"></a>
+        <div class="cabeca">
+            <h1 class="title">GeoMath</h1>
+            <h2 class="subtitle">Calculadora de Sólidos</h2>
+        </div>
+
+        <div class="barra"></div>
+
+        <nav class="nav">
+            <a href="/" class="logo"></a>
+            <ul class="nav-list">
+                <li><a href="../index.html" class="pagina">Início</a></li>
+                <li><a href="cilindro.html" class="pagina">Cilindro</a></li>
+                <li><a href="cone.html" class="pagina">Cone</a></li>
+                <li><a href="esfera.html" class="pagina">Esfera</a></li>
+                <li><a href="piramide.html" class="pagina">Pirâmide</a></li>
+                <li><a href="prisma.html" class="pagina">Prisma</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="titulo">
+            <h1 class="name">Pirâmide</h1>
+        </div>
+        <div class="box">
+            <img src="../assets/img/solidospage/piramide.png" alt="pirâmide" class="imagem">
+            <div class="texto">
+                <h2 class="boxtitle">Calculadora de Volume e Área</h2>
+                <div class="dados">
+                    <p class="insiridor">Insira o valor do lado da base (cm):</p>
+                    <input type="number" id="lado" class="input"><br>
+                    <p class="insiridor">Insira a altura da pirâmide (cm):</p>
+                    <input type="number" id="altura" class="input">
+                    <p class="aviso">*Se a altura não for inserida, será considerada como 10 cm.</p>
+                    <p class="insiridor">Insira o número de lados da base (inteiros):</p>
+                    <input type="number" id="n_lados" class="input">
+                    <br>
+                    <br>
+                    <div class="resultados">
+                        <button onclick="calcularArea()" class="botao">Calcular a área</button>
+                        <div class="resultbox"><p id="resultadoArea" class="insiridor"></p></div>
+                    </div>
+                    <br>
+                    <div class="resultados">
+                        <button onclick="calcularVolume()" class="botao">Calcular o volume</button>
+                        <div class="resultbox"><p id="resultadoVolume" class="insiridor"></p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Feito por João Guilherme, João Victor e Lucas</p>
+        <a href="quemsomos.html" class="quemsomos">Quem somos nós</a>
+    </footer>
+
+    <script>
+        function calcularArea() {
+            lado = parseFloat(document.getElementById("lado").value);
+            altura = parseFloat(document.getElementById("altura").value);
+            n_lados = parseFloat(document.getElementById("n_lados").value);
+
+            if (lado <= 0 || altura <= 0 || n_lados <= 2 || isNaN(lado) || isNaN(n_lados) ) {
+                document.getElementById("resultadoArea").textContent = "Impossível de realizar";
+                return;
+            }
+            
+            if (isNaN(altura)){
+                altura = 10;
+            }
+
+            if (n_lados == 3){
+                alturaLateral = Math.sqrt(Math.pow(altura, 2) + Math.pow(lado / 2, 2));
+
+                areaBase = (Math.pow(lado, 2)*Math.sqrt(3))/4;
+                areaLateral = 2 * lado * alturaLateral;
+                areaTotal = areaBase + areaLateral;
+            }
+
+            else if (n_lados === 4){
+            alturaLateral = Math.sqrt(Math.pow(altura, 2) + Math.pow(lado / 2, 2));
+
+            areaBase = Math.pow(lado, 2);
+            areaLateral = 2 * lado * alturaLateral;
+            areaTotal = areaBase + areaLateral;}
+
+            else{
+            alturaLateral = Math.sqrt(Math.pow(altura, 2) + Math.pow(lado / 2, 2));
+
+            areaBase = ((Math.pow(lado, 2)*Math.sqrt(3))/4)*n_lados;
+            areaLateral = 2 * lado * alturaLateral;
+            areaTotal = areaBase + areaLateral;}
+
+            document.getElementById("resultadoArea").textContent = `${areaTotal.toFixed(2)} cm²`;
+        }
+
+        function calcularVolume() {
+            lado = parseFloat(document.getElementById("lado").value);
+            altura = parseFloat(document.getElementById("altura").value);
+            n_lados = parseFloat(document.getElementById("n_lados").value);
+
+            if (lado <= 0 || altura <= 0 || n_lados <= 2 || isNaN(lado) || isNaN(n_lados)) {
+                document.getElementById("resultadoVolume").textContent = "Impossível de realizar";
+                return;
+            }
+
+            if (isNaN(altura)){
+                altura = 10;
+            }
+
+            if (n_lados == 3){
+                volume = (((Math.pow(lado, 2)*Math.sqrt(3))/4) * altura) / 3;
+            }
+
+            else if (n_lados == 4) {
+                volume = (Math.pow(lado, 2) * altura) / 3;
+            }
+        
+            else{
+            volume = ((((Math.pow(lado, 2)*Math.sqrt(3))/4)*n_lados) * altura) / 3;}
+
+            document.getElementById("resultadoVolume").textContent = `${volume.toFixed(2)} cm³`;
+        }
+    </script>
+</body>
+</html>
